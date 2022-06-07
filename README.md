@@ -7,16 +7,16 @@ Requirements
 ------------
 ansible 2.9 
 
+by default the role have the github url for node exporter 
+https://github.com/prometheus/node_exporter/releases/download/
 
 Role Variables
 --------------
-You can set a default version by default the last one 
-url  **https://github.com/prometheus/node_exporter/releases/download/**
---
-**node_version**  1.3.1 ( last version in 2021)
 
-**node_prometheus** ip of your prometheus node scraper
-Dependencies
+| **node_version**    | 1.3.1                                                          |
+|-----------------|----------------------------------------------------------------    |
+| **node_prometheus** | ip for your distante prometheus server                         |
+
 ------------
  actually no dependencies for this roles
 
