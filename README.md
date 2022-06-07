@@ -21,7 +21,7 @@ Dependencies
 Example Playbook
 ----------------
 
-     ansible-playbook -i  inventory/hosts  -u samy  prometheus-config.yml    -e "node_version=1.3.1 node_prometheus=127.0.0.1" --limit=server
+     ansible-playbook -i  inventory/hosts  -u user  prometheus-config.yml    -e "node_version=1.3.1 node_prometheus=127.0.0.1" --limit=server
 ---
     - hosts: servers
       roles:
