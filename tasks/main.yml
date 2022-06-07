@@ -1,0 +1,50 @@
+---
+# tasks file for prometheus-config
+
+- name: create user prometheus
+  group:
+    name: prometheus
+    state: present
+
+
+- name: add user prometheus
+  user:
+    name: prometheus
+    comment: prometheus user
+    group: prometheus
+    shell: /sbin/nologin
+
+- name: add default exporter (prometheus)
+  get_url: 
+    url: https://github.com/prometheus/node_exporter/releases/download/v{{ node_version }}/node_exporter-{{ node_version }}.linux-amd64.tar.gz
+    dest: /tmp/
+    mode: '0644'
+
+- name:  uncompress node_exporter
+  unarchive:
+    src: /tmp/node_exporter-{{node_version }}.linux-amd64.tar.gz
+    dest: /usr/local/bin/
+    remote_src: yes
+
+- name: add template service
+  template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root 
+
+- name: just force systemd to reread configs 
+  systemd:
+   daemon_reload: yes  
+
+- name: start consul service
+  service:
+      name: node_exporter
+      state: started
+      enabled: yes
+
+- name: configure iptables
+  iptables:
+    chain: INPUT
+    source: "{{ node_prometheus }}"
+    policy: ACCEPT
+    destination_port: 9100
