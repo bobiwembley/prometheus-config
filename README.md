@@ -5,15 +5,17 @@ Add default node exporter to debian ubuntu server
 
 Requirements
 ------------
-
+ansible 2.9 
 
 
 Role Variables
 --------------
 You can set a default version by default the last one 
 url  **https://github.com/prometheus/node_exporter/releases/download/**
-node_version= 
+--
+**node_version**  1.3.1 ( last version in 2021)
 
+**node_prometheus** ip of your prometheus node scraper
 Dependencies
 ------------
  actually no dependencies for this roles
@@ -25,7 +27,7 @@ Example Playbook
 ---
     - hosts: servers
       roles:
-         - prometheus-config
+         - prometheus-node-exporter
 
 License
 -------
